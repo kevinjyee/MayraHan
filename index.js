@@ -85,13 +85,13 @@ app.post('/webhook/', function (req, res) {
             }
 
             if (text === 'Upload PDF') {
-                sendTextMessage(sender,"Type in your File Name")
                 pdfVar.uploadPDFFileName = true
+                sendTextMessage(sender,"Type in your File Name")
                 res.sendStatus(200)
                 return
 
             }
-            if(pdfVar.uploadPDFFileName)
+            if(pdfVar.uploadPDFFileName && text != 'Type in your File Name')
             {
                 pdfVar.fileName = text
                 sendTextMessage(sender, "Please Upload a PDF")
@@ -101,7 +101,7 @@ app.post('/webhook/', function (req, res) {
                 return
             }
 
-            if(pdfVar.uploadPDF)
+            if(pdfVar.uploadPDF && text != 'Please Upload a PDF')
             {
 
                 pdfVar.fileLink = text
