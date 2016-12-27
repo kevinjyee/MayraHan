@@ -8,12 +8,12 @@ const path = require("path")
 
 var pdfVar = require("./src/uploadPDF");
 /*
-*
-* *
-* App Initialization
-*
-*
-* */
+ *
+ * *
+ * App Initialization
+ *
+ *
+ * */
 
 
 
@@ -55,15 +55,14 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 
 /*
-function writeUserData(userId, name, email) {
-    firebase.database().ref('users/' + userId).push({
-        username: name,
-        email: email
-    });
-}
-
-writeUserData(1, 'hashim', 'hh1316');
-*/
+ function writeUserData(userId, name, email) {
+ firebase.database().ref('users/' + userId).push({
+ username: name,
+ email: email
+ });
+ }
+ writeUserData(1, 'hashim', 'hh1316');
+ */
 
 /*
  *
@@ -88,12 +87,13 @@ app.post('/webhook/', function (req, res) {
             if (text === 'Upload PDF') {
                 sendTextMessage(sender,"Type in your File Name")
                 pdfVar.uploadPDFFileName = true
-                continue;
+                continue
 
             }
             if(pdfVar.uploadPDFFileName)
             {
                 pdfVar.fileName = text
+                sendTextMessage(sender, "Please Upload a PDF")
                 pdfVar.uploadPDFFileName = false
                 pdfVar.uploadPDF = true
                 continue;
@@ -101,12 +101,13 @@ app.post('/webhook/', function (req, res) {
 
             if(pdfVar.uploadPDF)
             {
-                pdfVar.uploadPDF = false
+
                 pdfVar.fileLink = text
                 firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
                     FileName: pdfVar.fileName,
                     FileLink: pdfVar.fileLink
                 });
+                pdfVar.uploadPDF = false
                 sendTextMessage(sender, "File Received")
                 continue;
             }
@@ -129,9 +130,9 @@ const token = "EAAIkTDOuK30BAFYwWOasXy0NEsZCO7XJ0LBglGEN501jE1T65qwKzBOygA7p8TWu
 
 
 /*Function: sendTextMessage
-*@Params: sender
-*@Params: text
-*/
+ *@Params: sender
+ *@Params: text
+ */
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
 
@@ -205,7 +206,3 @@ function sendGenericMessage(sender) {
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
-
-
-
-
