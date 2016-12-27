@@ -87,7 +87,8 @@ app.post('/webhook/', function (req, res) {
             if (text === 'Upload PDF') {
                 sendTextMessage(sender,"Type in your File Name")
                 pdfVar.uploadPDFFileName = true
-                break;
+                res.sendStatus(200)
+                return
 
             }
             if(pdfVar.uploadPDFFileName)
@@ -96,6 +97,7 @@ app.post('/webhook/', function (req, res) {
                 sendTextMessage(sender, "Please Upload a PDF")
                 pdfVar.uploadPDFFileName = false
                 pdfVar.uploadPDF = true
+                res.sendStatus(200)
                 return
             }
 
@@ -109,7 +111,7 @@ app.post('/webhook/', function (req, res) {
                 });
                 pdfVar.uploadPDF = false
                 sendTextMessage(sender, "File Received")
-                continue;
+                continue
             }
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
