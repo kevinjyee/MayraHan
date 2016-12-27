@@ -5,6 +5,8 @@ const request = require('request')
 const app = express()
 const path = require("path")
 
+
+var pdfVar = require("./src/uploadPDF");
 /*
 *
 * *
@@ -52,7 +54,7 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 
-
+/*
 function writeUserData(userId, name, email) {
     firebase.database().ref('users/' + userId).push({
         username: name,
@@ -61,7 +63,7 @@ function writeUserData(userId, name, email) {
 }
 
 writeUserData(1, 'hashim', 'hh1316');
-
+*/
 
 /*
  *
@@ -81,6 +83,32 @@ app.post('/webhook/', function (req, res) {
             if (text === 'Generic') {
                 sendGenericMessage(sender)
                 continue
+            }
+
+            if (text === 'Upload PDF') {
+                sendTextMessage(sender,"Type in your File Name")
+                pdfVar.uploadPDFFileName = true
+                continue
+
+            }
+            if(pdfVar.uploadPDFFileName)
+            {
+                pdfVar.fileName = text
+                pdfVar.uploadPDFFileName = false
+                pdfVar.uploadPDF = true
+                sendTextMessage(sender, "Please Upload a PDF")
+                continue
+            }
+
+            if(pdfVar.uploadPDF)
+            {
+                pdfVar.uploadPDF = false
+                pdfVar.fileLink = text
+                firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
+                    FileName: pdfVar.fileName,
+                    FileLink: pdfVar.fileLink
+                });
+                sendTextMessage(sender, "File Received")
             }
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
