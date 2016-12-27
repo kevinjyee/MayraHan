@@ -88,7 +88,7 @@ app.post('/webhook/', function (req, res) {
             if (text === 'Upload PDF') {
                 sendTextMessage(sender,"Type in your File Name")
                 pdfVar.uploadPDFFileName = true
-                continue
+                break;
 
             }
             if(pdfVar.uploadPDFFileName)
