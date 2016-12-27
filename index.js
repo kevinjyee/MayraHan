@@ -1,9 +1,20 @@
 'use strict'
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const path = require("path")
+
+/*
+*
+* *
+* App Initialization
+*
+*
+* */
+
+
+var init = require(path.join(__dirname, "./setup/init"));
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -26,7 +37,18 @@ app.get('/webhook/', function (req, res) {
     res.send('Error, wrong token')
 })
 
-// to post data
+
+
+
+
+/*
+ *
+ *
+ * Posting Data
+ *
+ *
+ *
+ * */
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
@@ -50,10 +72,16 @@ app.post('/webhook/', function (req, res) {
 })
 
 
+
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.PAGE_ACCESS_TOKEN
 const token = "EAAIkTDOuK30BAFYwWOasXy0NEsZCO7XJ0LBglGEN501jE1T65qwKzBOygA7p8TWu8Pqb2mek5CytQwJqI5ztT2YoDIhftXhP27a9jteq6nq6iYegibtN9VBnThDizZCL4MhFZBKqaR1vMKPlxhjqcPRd12uWL1lTLnFXZAGZBywZDZD"
 
+
+/*Function: sendTextMessage
+*@Params: sender
+*@Params: text
+*/
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
 
@@ -127,3 +155,7 @@ function sendGenericMessage(sender) {
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
+
+
+
+
