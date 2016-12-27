@@ -52,10 +52,9 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 
-var database = firebase.database();
 
 function writeUserData(userId, name, email) {
-    firebase.database().ref('users/' + userId).set({
+    firebase.database().ref('users/' + userId).push({
         username: name,
         email: email
     });
