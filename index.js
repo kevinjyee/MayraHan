@@ -14,7 +14,6 @@ const path = require("path")
 * */
 
 
-var init = require(path.join(__dirname, "./setup/init"));
 
 app.set('port', (process.env.PORT || 5000))
 
