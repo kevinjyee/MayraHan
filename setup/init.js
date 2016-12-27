@@ -31,7 +31,5 @@ function writeUserData(userId, name, email) {
 
 writeUserData(1, 'hashim', 'hh1316');
 
-var Users = require(path.join(__dirname, '../src/users'));
 
 exports.map = map;
-exports.Users = Users;

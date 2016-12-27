@@ -2,7 +2,7 @@
  * Created by kevin on 12/26/16.
  */
 
-path = require('path');
+var path = require('path');
 
 var Consts = require('./consts');
 var request = require('request');
