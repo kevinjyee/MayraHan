@@ -96,14 +96,14 @@ app.post('/webhook/', function (req, res) {
                 if(downloadVar.downloadPDFFileName && text != 'Type in your File Name')
                 {
                     downloadVar.downloadPDFFileName = false
-                    var link
                     downloadVar.dfileName = text
                     return firebase.database().ref('pdfs/' + downloadVar.dfileName).once('value').then(function(snapshot) {
-                       link = snapshot.val().FileLink;
+                        var link = snapshot.val().FileLink
+                        sendTextMessage(sender, "Here is your file link" + link);
 
                     });
 
-                    sendTextMessage(sender, "Here is your file link" + link);
+
                 }
 
 
