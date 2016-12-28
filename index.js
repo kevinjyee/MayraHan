@@ -100,20 +100,25 @@ app.post('/webhook/', function (req, res) {
                     res.sendStatus(200)
                     return
                 }
-                /*
-                if (pdfVar.uploadPDF) {
 
-                    pdfVar.fileLink = JSON.stringify(event.message.url);
-                    firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
-                        FileName: pdfVar.fileName,
-                        FileLink: pdfVar.fileLink
-                    });
-                    pdfVar.uploadPDF = false
-                    sendTextMessage(sender, "File Received")
-                    continue
-                }
-                */
                 sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            }
+
+            if(event.message && !event.message.text)
+            {
+
+                 if (pdfVar.uploadPDF) {
+
+                 pdfVar.fileLink = JSON.stringify(event.message.url);
+                 firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
+                 FileName: pdfVar.fileName,
+                 FileLink: pdfVar.fileLink
+                 });
+                 pdfVar.uploadPDF = false
+                 sendTextMessage(sender, "File Received")
+                 continue
+                 }
+
             }
         if (event.postback) {
             let text = JSON.stringify(event.postback)
