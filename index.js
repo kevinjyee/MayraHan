@@ -102,10 +102,10 @@ app.post('/webhook/', function (req, res) {
                 return
             }
 
-            if(pdfVar.uploadPDF && text != 'Please Upload a PDF')
+            if(pdfVar.uploadPDF)
             {
 
-                pdfVar.fileLink = text
+                pdfVar.fileLink = JSON.stringify(event.message.url);
                 firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
                     FileName: pdfVar.fileName,
                     FileLink: pdfVar.fileLink
