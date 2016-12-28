@@ -111,9 +111,12 @@ app.post('/webhook/', function (req, res) {
 
                     /*http://stackoverflow.com/questions/37117083/how-to-receive-image-in-facebook-messenger-bot*/
                  //pdfVar.fileLink = event.message.attachments.payload.url;
+                     if(atts[0].type === "image") {
+                         pdfVar.fileLink = atts[0].payload.url;
+                     }
                  firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
                  FileName: pdfVar.fileName,
-                 FileLink: "Random"
+                 FileLink: pdfVar.fileLink
                  });
                  pdfVar.uploadPDF = false
                  sendTextMessage(sender, "File Received")
