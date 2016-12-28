@@ -78,44 +78,43 @@ app.post('/webhook/', function (req, res) {
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
+            if(event.message && event.message.text) {
+                let text = event.message.text
+                if (text === 'Generic') {
+                    sendGenericMessage(sender)
+                    continue
+                }
 
-            let text = event.message.text
-            if (text === 'Generic') {
-                sendGenericMessage(sender)
-                continue
+                if (text === 'Upload PDF') {
+                    pdfVar.uploadPDFFileName = true
+                    sendTextMessage(sender, "Type in your File Name")
+                    res.sendStatus(200)
+                    return
+
+                }
+                if (pdfVar.uploadPDFFileName && text != 'Type in your File Name') {
+                    pdfVar.fileName = text
+                    sendTextMessage(sender, "Please Upload a PDF")
+                    pdfVar.uploadPDFFileName = false
+                    pdfVar.uploadPDF = true
+                    res.sendStatus(200)
+                    return
+                }
+                /*
+                if (pdfVar.uploadPDF) {
+
+                    pdfVar.fileLink = JSON.stringify(event.message.url);
+                    firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
+                        FileName: pdfVar.fileName,
+                        FileLink: pdfVar.fileLink
+                    });
+                    pdfVar.uploadPDF = false
+                    sendTextMessage(sender, "File Received")
+                    continue
+                }
+                */
+                sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
             }
-
-            if (text === 'Upload PDF') {
-                pdfVar.uploadPDFFileName = true
-                sendTextMessage(sender,"Type in your File Name")
-                res.sendStatus(200)
-                return
-
-            }
-            if(pdfVar.uploadPDFFileName && text != 'Type in your File Name')
-            {
-                pdfVar.fileName = text
-                sendTextMessage(sender, "Please Upload a PDF")
-                pdfVar.uploadPDFFileName = false
-                pdfVar.uploadPDF = true
-                res.sendStatus(200)
-                return
-            }
-
-            if(pdfVar.uploadPDF)
-            {
-
-                pdfVar.fileLink = JSON.stringify(event.messageobj.url);
-                firebase.database().ref('pdfs/' + pdfVar.fileLink).push({
-                    FileName: pdfVar.fileName,
-                    FileLink: pdfVar.fileLink
-                });
-                pdfVar.uploadPDF = false
-                sendTextMessage(sender, "File Received")
-                continue
-            }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-
         if (event.postback) {
             let text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
