@@ -7,6 +7,7 @@ const path = require("path")
 
 
 var pdfVar = require("./src/uploadPDF");
+var downloadVar = require("./src/download");
 /*
  *
  * *
@@ -61,8 +62,7 @@ firebase.initializeApp(config);
  email: email
  });
  }
- writeUserData(1, 'hashim', 'hh1316');
- */
+*/
 
 /*
  *
@@ -85,7 +85,27 @@ app.post('/webhook/', function (req, res) {
                     continue
                 }
 
-                if (text === 'Upload PDF') {
+                if(text === 'Download')
+                {
+                    downloadVar.downloadPDFFileName = true
+                    sendTextMessage(sender, "Type in your File Name")
+                    res.sendStatus(200)
+                    return
+                }
+
+                if(downloadVar.downloadPDFFileName && text != 'Type in your File Name')
+                {
+                    var link
+                    downloadVar.dfileName = text
+                    return firebase.database().ref('/pdf/' + downloadVar.dfileName).once('value').then(function(snapshot) {
+                        link = snapshot.val().FileLink
+                    });
+
+                    sendTextMessage(sender, "Here is your file link" + link);
+                }
+
+
+                if (text === 'Upload') {
                     pdfVar.uploadPDFFileName = true
                     sendTextMessage(sender, "Type in your File Name")
                     res.sendStatus(200)
@@ -94,7 +114,7 @@ app.post('/webhook/', function (req, res) {
                 }
                 if (pdfVar.uploadPDFFileName && text != 'Type in your File Name') {
                     pdfVar.fileName = text
-                    sendTextMessage(sender, "Please Upload a PDF")
+                    sendTextMessage(sender, "Please Upload a File")
                     pdfVar.uploadPDFFileName = false
                     pdfVar.uploadPDF = true
                     res.sendStatus(200)
