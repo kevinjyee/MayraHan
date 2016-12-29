@@ -80,10 +80,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if(event.message && event.message.text) {
             let text = event.message.text
-            if (text === 'Generic') {
-                sendGenericMessage(sender)
-                continue
-            }
+
 
             if(text === 'Download')
             {
@@ -105,7 +102,7 @@ app.post('/webhook/', function (req, res) {
 
                     sendTextMessage(sender, "Here is your file link test 1" + snapshot.val().FileLink);
                     sendTextMessage(sender, "here is your file link test 2" + snapshot.child("FileLink").val());
-                    sendGenericMessage(sender,snapshot.child("FileLink").val());
+                    sendImageMessage(sender,snapshot.child("FileLink").val());
                 }, function (error) {
                     sendTextMessage(sender, "Here is your error" + error);
                 });
@@ -225,6 +222,39 @@ function sendGenericMessage(sender,imageURL) {
                         "payload": "Payload for second element in a generic bubble",
                     }],
                 }]
+            }
+        }
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+
+function sendImageMessage(sender,imageURL) {
+    let messageData = {
+        "attachment": {
+            "type": "image",
+            "payload": {
+
+                        "url": imageURL,
+                    "is_reusable": true
+                    }
+
+
+
             }
         }
     }
