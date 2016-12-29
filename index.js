@@ -8,7 +8,6 @@ const path = require("path")
 
 var pdfVar = require("./src/uploadPDF");
 var downloadVar = require("./src/download");
-var firebaseDB = require("./src/firebase");
 /*
  *
  * *
@@ -43,11 +42,27 @@ app.get('/webhook/', function (req, res) {
 
 /*Initialize Database*/
 
-firebaseDB.initFirebase();
+//Initialize data base
+var firebase = require("firebase");
+var config = {
+    apiKey: "AIzaSyDTrJWeSWmX5JTPW-h0rX1d0NAqntSnF8k",
+    authDomain: "mayra-han.firebaseapp.com",
+    databaseURL: "https://mayra-han.firebaseio.com",
+    storageBucket: "mayra-han.appspot.com",
+    messagingSenderId: "819633055429"
+};
+firebase.initializeApp(config);
 
 // Get a reference to the database service
 
-
+/*
+ function writeUserData(userId, name, email) {
+ firebase.database().ref('users/' + userId).push({
+ username: name,
+ email: email
+ });
+ }
+ */
 
 /*
  *
@@ -130,7 +145,10 @@ app.post('/webhook/', function (req, res) {
 
                 pdfVar.fileLink = event.message.attachments[0].payload.url;
 
-                firebaseDB.uploadPDF();
+                firebase.database().ref('pdfs/' + pdfVar.fileName).set({
+                    FileName: pdfVar.fileName,
+                    FileLink: pdfVar.fileLink
+                });
                 pdfVar.uploadPDF = false
                 sendTextMessage(sender, "File Received")
                 continue
