@@ -102,7 +102,7 @@ app.post('/webhook/', function (req, res) {
 
                     sendTextMessage(sender, "Here is your file link test 1" + snapshot.val().FileLink);
                     sendTextMessage(sender, "here is your file link test 2" + snapshot.child("FileLink").val());
-                    sendImageMessage(sender,snapshot.child("FileLink").val());
+                    sendGenericMessage(sender,snapshot.child("FileLink").val());
                 }, function (error) {
                     sendTextMessage(sender, "Here is your error" + error);
                 });
