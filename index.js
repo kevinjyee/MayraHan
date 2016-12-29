@@ -98,12 +98,12 @@ app.post('/webhook/', function (req, res) {
                     downloadVar.downloadPDFFileName = false
                     downloadVar.dfileName = text
 
-                    var ref = firebase.database().ref('pdfs/' + text);
+                    var ref = firebase.database().ref('pdfs/' + text + 'FileLink');
 
                     ref.on("value", function(snapshot) {
                         console.log(snapshot.val());
 
-                        sendTextMessage(sender, "Here is your file link" + snapshot.val().FileLink);
+                        sendTextMessage(sender, "Here is your file link" + snapshot.val());
                     }, function (error) {
                         sendTextMessage(sender, "Here is your error" + error);
                     });
