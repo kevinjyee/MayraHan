@@ -8,13 +8,10 @@ const path = require("path")
 
 var pdfVar = require("./src/uploadPDF");
 var downloadVar = require("./src/download");
-/*
- *
- * *
- * App Initialization
- *
- *
- * */
+
+
+
+/* App Initialization*/
 
 
 
@@ -55,23 +52,8 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 
-/*
- function writeUserData(userId, name, email) {
- firebase.database().ref('users/' + userId).push({
- username: name,
- email: email
- });
- }
- */
 
-/*
- *
- *
- * Posting Data
- *
- *
- *
- * */
+/* Posting Data */
 app.post('/webhook/', function (req, res) {
 
     let messaging_events = req.body.entry[0].messaging
@@ -80,7 +62,6 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if(event.message && event.message.text) {
             let text = event.message.text
-
 
             if(text === 'Download')
             {
@@ -100,8 +81,7 @@ app.post('/webhook/', function (req, res) {
                 ref.on("value", function(snapshot) {
                     console.log(snapshot.val());
 
-                    sendTextMessage(sender, "Here is your file link test 1" + snapshot.val().FileLink);
-                    sendTextMessage(sender, "here is your file link test 2" + snapshot.child("FileLink").val());
+
                     sendImageMessage(sender,snapshot.child("FileLink").val());
                 }, function (error) {
                     sendTextMessage(sender, "Here is your error" + error);
@@ -113,14 +93,13 @@ app.post('/webhook/', function (req, res) {
 
             }
 
-
             if (text === 'Upload') {
                 pdfVar.uploadPDFFileName = true
                 sendTextMessage(sender, "Type in your File Name")
                 res.sendStatus(200)
                 return
-
             }
+
             if (pdfVar.uploadPDFFileName && text != 'Type in your File Name') {
                 pdfVar.fileName = text
                 sendTextMessage(sender, "Please Upload a File")
