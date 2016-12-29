@@ -25,8 +25,13 @@
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state relative-caret-position="-162">
               <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+=======
+            <state relative-caret-position="705">
+              <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+>>>>>>> parent of 41416bb... added FileLink
 =======
             <state relative-caret-position="705">
               <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
@@ -376,8 +381,12 @@
       <workItem from="1482954233376" duration="1904000" />
       <workItem from="1482970997936" duration="1264000" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1482973119525" duration="3182000" />
       <workItem from="1482978673598" duration="1419000" />
+=======
+      <workItem from="1482973119525" duration="2598000" />
+>>>>>>> parent of 41416bb... added FileLink
 =======
       <workItem from="1482973119525" duration="2598000" />
 >>>>>>> parent of 41416bb... added FileLink
@@ -386,7 +395,11 @@
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="35666000" />
+=======
+    <option name="totallyTimeSpent" value="33663000" />
+>>>>>>> parent of 41416bb... added FileLink
 =======
     <option name="totallyTimeSpent" value="33663000" />
 >>>>>>> parent of 41416bb... added FileLink
@@ -781,6 +794,7 @@
     <entry file="file://$PROJECT_DIR$/setup/init.js">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <state relative-caret-position="126">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
@@ -809,6 +823,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+=======
+        <state relative-caret-position="705">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+>>>>>>> parent of 41416bb... added FileLink
 =======
         <state relative-caret-position="705">
           <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
