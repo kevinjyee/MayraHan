@@ -257,8 +257,7 @@ function sendImageMessage(sender,imageURL) {
 
             }
         }
-    }
-    request({
+        request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
         method: 'POST',
