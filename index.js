@@ -8,6 +8,7 @@ const path = require("path")
 
 var pdfVar = require("./src/uploadPDF");
 var downloadVar = require("./src/download");
+var firebaseDB = require("./src/firebase");
 /*
  *
  * *
@@ -42,27 +43,11 @@ app.get('/webhook/', function (req, res) {
 
 /*Initialize Database*/
 
-//Initialize data base
-var firebase = require("firebase");
-var config = {
-    apiKey: "AIzaSyDTrJWeSWmX5JTPW-h0rX1d0NAqntSnF8k",
-    authDomain: "mayra-han.firebaseapp.com",
-    databaseURL: "https://mayra-han.firebaseio.com",
-    storageBucket: "mayra-han.appspot.com",
-    messagingSenderId: "819633055429"
-};
-firebase.initializeApp(config);
+firebaseDB.initFirebase();
 
 // Get a reference to the database service
 
-/*
- function writeUserData(userId, name, email) {
- firebase.database().ref('users/' + userId).push({
- username: name,
- email: email
- });
- }
- */
+
 
 /*
  *
