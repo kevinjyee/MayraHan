@@ -103,7 +103,7 @@ app.post('/webhook/', function (req, res) {
                     ref.on("value", function(snapshot) {
                         console.log(snapshot.val());
 
-                        sendTextMessage(sender, "Here is your file link" + snapshot.child("FileLink").val());
+                        sendTextMessage(sender, "Here is your file link" + snapshot.child(String(ref.getKey())).val());
                     }, function (error) {
                         sendTextMessage(sender, "Here is your error" + error);
                     });
