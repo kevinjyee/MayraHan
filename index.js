@@ -103,7 +103,7 @@ app.post('/webhook/', function (req, res) {
                     ref.on("value", function(snapshot) {
                         console.log(snapshot.val());
 
-                        sendTextMessage(sender, "Here is your file link" + ref.key());
+                        sendTextMessage(sender, "Here is your file link" + snapshot.val());
                     }, function (error) {
                         sendTextMessage(sender, "Here is your error" + error);
                     });
@@ -144,7 +144,7 @@ app.post('/webhook/', function (req, res) {
 
                          pdfVar.fileLink = event.message.attachments[0].payload.url;
 
-                 firebase.database().ref('pdfs/' + pdfVar.fileName).push({
+                 firebase.database().ref('pdfs/' + pdfVar.fileName).set({
                  FileName: pdfVar.fileName,
                  FileLink: pdfVar.fileLink
                  });
