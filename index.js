@@ -130,10 +130,7 @@ app.post('/webhook/', function (req, res) {
 
                 pdfVar.fileLink = event.message.attachments[0].payload.url;
 
-                firebase.database().ref('pdfs/' + pdfVar.fileName).set({
-                    FileName: pdfVar.fileName,
-                    FileLink: pdfVar.fileLink
-                });
+                firebaseDB.uploadPDF();
                 pdfVar.uploadPDF = false
                 sendTextMessage(sender, "File Received")
                 continue

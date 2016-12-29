@@ -2,10 +2,11 @@
  * Created by kevin on 12/28/16.
  */
 
+var pdfVar = require("./uploadPDF");
 
 module.exports =
     {
-        initFirebase: function() {
+        initFirebase: function () {
             var firebase = require("firebase");
             var config = {
                 apiKey: "AIzaSyDTrJWeSWmX5JTPW-h0rX1d0NAqntSnF8k",
@@ -16,5 +17,12 @@ module.exports =
             };
             firebase.initializeApp(config);
 
+        },
+
+        uploadPDF: function () {
+            firebase.database().ref('pdfs/' + pdfVar.fileName).set({
+                FileName: pdfVar.fileName,
+                FileLink: pdfVar.fileLink
+            });
         }
-}
+    }
