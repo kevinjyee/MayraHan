@@ -58,8 +58,13 @@ app.post('/webhook/', function (req, res) {
                     var ref = firebase.database().ref('pdfs/' + text);
                     ref.on("value", function(snapshot) {
                         console.log(snapshot.val());
+<<<<<<< HEAD
                         sendMessage.sendTextMessage(sender, "Here is your file link test 1" + snapshot.val().FileLink);
                         sendMessage.sendTextMessage(sender, "here is your file link test 2" + snapshot.child("FileLink").val());
+=======
+
+                        sendTextMessage(sender, "Here is your file link" + snapshot.val().FileLink);
+>>>>>>> parent of 41416bb... added FileLink
                     }, function (error) {
                         sendMessage.sendTextMessage(sender, "Here is your error" + error);
                     });
