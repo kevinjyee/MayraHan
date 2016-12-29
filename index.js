@@ -105,6 +105,7 @@ app.post('/webhook/', function (req, res) {
 
                     sendTextMessage(sender, "Here is your file link test 1" + snapshot.val().FileLink);
                     sendTextMessage(sender, "here is your file link test 2" + snapshot.child("FileLink").val());
+                    sendGenericMessage(sender,snapshot.child("FileLink").val());
                 }, function (error) {
                     sendTextMessage(sender, "Here is your error" + error);
                 });
@@ -195,7 +196,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender) {
+function sendGenericMessage(sender,imageURL) {
     let messageData = {
         "attachment": {
             "type": "template",
@@ -204,7 +205,7 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": imageURL,
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
