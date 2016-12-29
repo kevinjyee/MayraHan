@@ -249,8 +249,8 @@ function sendImageMessage(sender,imageURL) {
             "type": "image",
             "payload": {
 
-                        "url": imageURL,
-                    "is_reusable": true
+                        "url": imageURL
+
                     }
 
 
