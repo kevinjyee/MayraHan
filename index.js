@@ -98,7 +98,7 @@ app.post('/webhook/', function (req, res) {
                     downloadVar.downloadPDFFileName = false
                     downloadVar.dfileName = text
 
-                    var ref = firebase.database().ref('pdfs/' + text + 'FileLink');
+                    var ref = firebase.database().ref('pdfs/' + text + '/FileLink');
 
                     ref.on("value", function(snapshot) {
                         console.log(snapshot.val());
